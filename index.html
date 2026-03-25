@@ -1,49 +1,400 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<title>Mi Página</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar Sesión - Zeta Store</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-body{
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#141e30,#243b55);
-  color: white;
-  text-align: center;
-  padding-top: 100px;
+  .password-wrapper {
+  position: relative;
 }
 
-h1{
-  font-size: 40px;
+.eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 16px;
+  border: 2px solid #555;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-p{
-  font-size: 18px;
+.eye::before {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #555;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-a{
-  display:inline-block;
-  margin-top:20px;
-  padding:12px 25px;
-  background:#00c3ff;
-  color:white;
-  text-decoration:none;
-  border-radius:8px;
-  font-size:18px;
+.eye.closed {
+  border-radius: 2px;
+  height: 2px;
+  background: #555;
 }
 
-a:hover{
-  background:#008cff;
+.eye.closed::before {
+  display: none;
+}
+
+  body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 80px;
+    overflow-y: auto;
+  }
+
+  .banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 0 0 10px #fff, 0 0 20px #00ffff;
+    z-index: 1000;
+  }
+
+  .container {
+    background: rgba(15, 15, 35, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
+    width: 90%;
+    max-width: 400px;
+    border: 2px solid #00ffcc;
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+  }
+
+  label {
+    display: block;
+    margin-top: 10px;
+    color: #ff00ff;
+    font-size: 14px;
+  }
+
+  input, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background: #1b1b35;
+    color: #fff;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  input:focus {
+    outline: none;
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+  button {
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 10px #ff00ff, 0 0 15px #00ffff;
+  }
+
+  button:hover {
+    box-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+    transform: scale(1.05);
+  }
+
+  p.message {
+    min-height: 24px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  p.message.error { color: #ff4d4d; text-shadow: 0 0 5px #ff4d4d; }
+  p.message.success { color: #00ffcc; text-shadow: 0 0 5px #00ffcc; }
+
+  .link {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .link a {
+    color: #ff00ff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .link a:hover {
+    color: #00ffff;
+  }
+
+  .container::before {
+    content: "🎮";
+    font-size: 36px;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  /* 🔥 BOTÓN TELEGRAM OWNER 🔥 */
+  .owner-contact {
+    margin-top: 18px;
+    text-align: center;
+  }
+
+  .telegram-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(90deg, #0088cc, #00ffff);
+    box-shadow: 0 0 12px #0088cc, 0 0 20px #00ffff;
+    transition: 0.3s;
+  }
+
+  .telegram-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #0088cc, 0 0 35px #00ffff;
+  }
+
+  .telegram-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  @media (max-width: 480px) {
+    .banner {
+      height: 50px;
+      font-size: 22px;
+    }
+    .container {
+      padding: 20px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 14px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+  }
+
+  /* 🔥 FONDO GRID */
+.background-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  background-color: #0a0a0f;
+  background-image:
+    linear-gradient(rgba(0,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+    animation: gridMove 20s linear infinite;
+  @keyframes gridMove {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 40px 40px, 40px 40px;
+  }
+}
+}
+
+/* 🔥 GLOW */
+.background-grid::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0,255,255,0.15), transparent 70%);
+  animation: glowMove 10s linear infinite;
+}
+
+@keyframes glowMove {
+  0% { transform: translate(0,0); }
+  50% { transform: translate(40px,40px); }
+  100% { transform: translate(0,0); }
+}
+
+/* 🔥 ASEGURA QUE EL CONTENIDO ESTE ENCIMA */
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.particles::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(0,255,255,0.4) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: particlesMove 25s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes particlesMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100px); }
 }
 </style>
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
+<div class="background-grid"></div>
+<div class="particles"></div>
 
-<h1>Bienvenido a mi página</h1>
-<p>Esta es mi primera web.</p>
+<div class="banner">Zeta Store</div>
 
-<a href="register.html">Registrarse</a>
+<div class="container">
+  <h2>Iniciar Sesión</h2>
+  <form id="loginForm">
+    <label>Correo Electrónico</label>
+    <input type="email" id="email" placeholder="tu@email.com" required>
 
-</body>
-</html>
+    <label>Contraseña</label>
+  <div style="position: relative;">
+  <input type="password" id="password" placeholder="Tu contraseña">
+
+  <i class="fas fa-eye" id="togglePassword"
+     style="position:absolute; right:10px; top:50%; transform:translateY(-50%);
+     cursor:pointer; color:#aaa;"></i>
+</div>
+
+    <button type="submit">Iniciar Sesión</button>
+    <p id="errorMsg" class="message"></p>
+  </form>
+
+  <div class="link">
+    ¿No tienes cuenta? <a href="register.html">Crea tu cuenta aquí</a>
+  </div>
+
+  <!-- 🔥 BOTÓN TELEGRAM 🔥 -->
+  <div class="owner-contact">
+    <a href="https://t.me/ZetaOwner" target="_blank" class="telegram-btn">
+      <svg viewBox="0 0 24 24" fill="white">
+        <path d="M9.04 15.47l-.39 5.46c.56 0 .8-.24 1.1-.53l2.64-2.53 5.48 4.01c1 .55 1.72.26 1.97-.92l3.57-16.74.01-.01c.3-1.4-.5-1.95-1.47-1.59L1.56 9.07c-1.37.53-1.35 1.29-.23 1.63l4.7 1.47 10.9-6.87c.51-.31.98-.14.6.17"/>
+      </svg>
+      Comunícate con el dueño
+    </a>
+  </div>
+
+</div>
+<script>
+const togglePassword = document.getElementById("togglePassword");
+const password = document.getElementById("password");
+
+togglePassword.addEventListener("click", () => {
+  const type = password.type === "password" ? "text" : "password";
+  password.type = type;
+
+  togglePassword.classList.toggle("fa-eye");
+  togglePassword.classList.toggle("fa-eye-slash");
+});
+</script>
+<script type="module">
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+
+const form = document.getElementById("loginForm");
+const errorMsg = document.getElementById("errorMsg");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault(); // 🔥 ESTO EVITA QUE SE BORRE TODO
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+    errorMsg.textContent = "✅ Bienvenido bro 🔥";
+    errorMsg.className = "message success";
+
+    setTimeout(() => {
+      window.location.href = "dashboard.html"; // o donde quieras redirigir
+    }, 1500);
+
+  } catch (error) {
+    errorMsg.textContent = "❌ Correo o contraseña incorrectos";
+    errorMsg.className = "message error";
+  }
+});
+
+let totalGastado = 320; // 💰 CAMBIA ESTO
+let maximo = 1000; // TOPE PARA LA BARRA
+
+// MOSTRAR USD
+document.getElementById("gastoUSD").textContent = "$" + totalGastado + " USD";
+
+// CALCULO BARRA
+let porcentaje = (totalGastado / maximo) * 100;
+
+// RANGOS
+let rango = "NOVATO";
+
+if(totalGastado >= 50) rango = "BRONCE";
+if(totalGastado >= 150) rango = "PLATA";
+if(totalGastado >= 300) rango = "PREMIUM";
+if(totalGastado >= 600) rango = "ELITE";
+if(totalGastado >= 1000) rango = "GOD";
+
+// MOSTRAR RANGO
+document.getElementById("rangoUser").textContent = rango;
+
+// ANIMACION
+setTimeout(()=>{
+  document.getElementById("gastoFill").style.width = porcentaje + "%";
+},300);
+</script>
+
+  </body>
